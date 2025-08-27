@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>成员介绍</title>
+    <style>
+      body{
+        background-image: url("src/bg.png");
+        margin: 0;
+        padding: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #e0e0e0;
+      }
+      
+      /* 成员内容区域 */
+      .members-container {
+        padding: 50px 10%;
+        min-height: calc(100vh - 200px);
+      }
+      
+      .members-title {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+        position: relative;
+        color: #4db8ff;
+        text-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+      }
+      
+      .members-title::after {
+        content: '';
+        position: absolute;
+        width: 100px;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, #ff3466, transparent);
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      
+      .members-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px; /* 调整为更平衡的间距 */
+      }
+      
+      /* 成员卡片样式 - 重要更新 */
+      .member-card {
+        background: rgba(15, 25, 45, 0.85);
+        border-radius: 15px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid rgba(0, 150, 255, 0.2);
+        display: flex;
+        flex-direction: column; /* 使用flex布局 */
+        height: 100%; /* 确保所有卡片高度一致 */
+      }
+      
+      .member-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 100, 255, 0.4);
+      }
+      
+      .card-top {
+        position: relative;
+        padding: 20px;
+        text-align: center;
+        background: rgba(10, 20, 40, 0.7);
+      }
+      
+      .member-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #4db8ff;
+        box-shadow: 0 0 20px rgba(0, 150, 255, 0.6);
+        margin-bottom: 20px;
+      }
+      
+      .member-name {
+        font-size: 1.8rem;
+        color: #4db8ff;
+        margin: 0 0 5px 0;
+        font-weight: bold;
+      }
+      
+      .member-role {
+        color: #ff3466;
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+      }
+      
+      .card-body {
+        padding: 20px;
+        flex-grow: 1; /* 允许内容区域扩展，平衡卡片高度 */
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .tech-stack {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px dashed rgba(77, 184, 255, 0.3);
+        flex-grow: 1; /* 确保技术描述区域可以扩展 */
+      }
+      
+      .tech-stack p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin: 0;
+      }
+      
+      .tech-label {
+        color: #4db8ff;
+        font-weight: bold;
+        margin-bottom: 8px;
+        display: block;
+      }
+      
+      /* 联系方式部分 - 固定在底部 */
+      .contact-methods {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        padding: 15px 20px;
+        border-top: 1px dashed rgba(77, 184, 255, 0.3);
+        background: rgba(10, 20, 40, 0.3);
+        margin-top: 10px; /* 添加与上方内容的间距 */
+      }
+      
+      .contact-icon {
+        color: #e0e0e0;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      
+      .contact-icon:hover {
+        color: #4db8ff;
+        transform: scale(1.2);
+      }
+    </style>
+</head>
+<body>
+<header>
+  <nav>
+    <div class="nav-container">
+      <ul class="nav-links">
+        <li><a href="index.html" >首页</a></li>
+        <li><a href="about.html">关于我们</a></li>
+        <li><a href="projects.html">项目介绍</a></li>
+        <li><a href="meetings.html">例会介绍</a></li>
+        <li><a href="members.html" class="active">成员介绍</a></li>
+        <li><a href="contact.html">联系我们</a></li>
+      </ul>
+    </div>
+    <div class="nav-logo">
+      <img src="/src/nav-logo.png" class ="logo-image">
+    </div>
+    <span class="logo-text">Block Chain</span>
+  </nav>
+</header>
+
+<!-- 成员介绍内容区域 -->
+<section class="members-container">
+  <h1 class="members-title">团队成员</h1>
+  
+  <div class="members-grid">
+    <!-- 成员卡片 1 -->
+    <div class="member-card">
+      <div class="card-top">
+        <img src="src/tangmingdi.png" alt="唐明迪" class="member-avatar">
+        <h2 class="member-name">唐明迪</h2>
+        <p class="member-role">后端，模型训练</p>
+      </div>
+      <div class="card-body">
+        <div class="tech-stack">
+          <span class="tech-label">技术专长:</span>
+          <p>基于SpringBoot的后端搭建，无监督视觉模型的训练与使用</p>
+        </div>
+        <div class="contact-methods">
+          <a href="https://github.com/Arisgod1"  target="_blank" class="contact-icon"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 成员卡片 2 -->
+    <div class="member-card">
+      <div class="card-top">
+        <img src="src/zhanghonghao.png" alt="张鸿昊" class="member-avatar">
+        <h2 class="member-name">张鸿昊</h2>
+        <p class="member-role">后端开发</p>
+      </div>
+      <div class="card-body">
+        <div class="tech-stack">
+          <span class="tech-label">技术专长:</span>
+          <p>java,springboot,ssm,maven,MySQL,</p>
+          <p>redis,netty,websocket,Elasticsearch</p>
+        </div>
+        <div class="contact-methods">
+          <a href="http://github.com/zhh293"  target="_blank" class="contact-icon"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 成员卡片 3 -->
+    <div class="member-card">
+      <div class="card-top">
+        <img src="src/renchengda.png" alt="任诚达" class="member-avatar">
+        <h2 class="member-name">任诚达</h2>
+        <p class="member-role">后端开发</p>
+      </div>
+      <div class="card-body">
+        <div class="tech-stack">
+          <span class="tech-label">技术专长:</span>
+          <p>javaweb, Pythonweb, blender建模, unity开发</p>
+        </div>
+        <div class="contact-methods">
+          <a href="https://github.com/enderrcd" target="_blank"  class="contact-icon"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 成员卡片 4 -->
+    <div class="member-card">
+      <div class="card-top">
+        <img src="src/sunchangxiang.png" alt="孙常翔" class="member-avatar">
+        <h2 class="member-name">孙常翔</h2>
+        <p class="member-role">客户端开发</p>
+      </div>
+      <div class="card-body">
+        <div class="tech-stack">
+          <span class="tech-label">技术专长:</span>
+          <p>Android Studio, Python</p>
+        </div>
+        <div class="contact-methods">
+          <a href="https://github.com/CHANCE719" target="_blank"  class="contact-icon"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+ 
+  <!-- 成员卡片 5-->
+   <div class="member-card">
+      <div class="card-top">
+        <img src="src/liujingwen.png" alt="刘静雯" class="member-avatar">
+        <h2 class="member-name">刘静雯</h2>
+        <p class="member-role">前端开发</p>
+      </div>
+      <div class="card-body">
+        <div class="tech-stack">
+          <span class="tech-label">技术专长:</span>
+          <p>Node.js，微信小程序</p>
+        </div>
+        <div class="contact-methods">
+         <a href="https://github.com/ywlbywl" target="_blank"  class="contact-icon"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+      <!-- 成员卡片 6-->
+   <div class="member-card">
+      <div class="card-top">
+        <img src="src/mayuying.png" alt="马玉灏" class="member-avatar">
+        <h2 class="member-name">马玉灏</h2>
+        <p class="member-role">后端开发</p>
+      </div>
+      <div class="card-body">
+        <div class="tech-stack">
+          <span class="tech-label">技术专长:</span>
+          <p>golang</p>
+        </div>
+        <div class="contact-methods">
+         <a href="https://github.com/yinxiangpingfan" target="_blank"  class="contact-icon"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+      <!-- 成员卡片 7-->
+   <div class="member-card">
+      <div class="card-top">
+        <img src="src/cairuihan.png" alt="蔡瑞含" class="member-avatar">
+        <h2 class="member-name">蔡瑞含</h2>
+        <p class="member-role">后端开发</p>
+      </div>
+      <div class="card-body">
+        <div class="tech-stack">
+          <span class="tech-label">技术专长:</span>
+          <p>python,go,fiber</p>
+        </div>
+        <div class="contact-methods">
+         <a href="https://github.com/MrCarfield" target="_blank"  class="contact-icon"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+        <!-- 成员卡片 8-->
+   <div class="member-card">
+      <div class="card-top">
+        <img src="src/dengyiming.png" alt="邓亦明 " class="member-avatar">
+        <h2 class="member-name">邓亦明 </h2>
+        <p class="member-role">深度学习</p>
+      </div>
+      <div class="card-body">
+        <div class="tech-stack">
+          <span class="tech-label">技术专长:</span>
+          <p>大模型</p>
+        </div>
+        <div class="contact-methods">
+         <a href="https://github.com/dymgithub" target="_blank"  class="contact-icon"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+        <!-- 成员卡片 9-->
+   <div class="member-card">
+      <div class="card-top">
+        <img src="src/maxingrui.png" alt="马鑫蕊 " class="member-avatar">
+        <h2 class="member-name">马鑫蕊 </h2>
+        <p class="member-role">前端开发</p>
+      </div>
+      <div class="card-body">
+        <div class="tech-stack">
+          <span class="tech-label">技术专长:</span>
+          <p>vue3，nodejs，pytorch</p>
+        </div>
+        <div class="contact-methods">
+         <a href="https://github.com/IHIRINA" target="_blank"  class="contact-icon"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div> 
+          <!-- 成员卡片 10-->
+   <div class="member-card">
+      <div class="card-top">
+        <img src="src/wangmingfu.png" alt="王明富 " class="member-avatar">
+        <h2 class="member-name">王明富 </h2>
+        <p class="member-role">前端开发</p>
+      </div>
+      <div class="card-body">
+        <div class="tech-stack">
+          <span class="tech-label">技术专长:</span>
+          <p>Android Studio，Flutter</p>
+        </div>
+        <div class="contact-methods">
+         <a href="https://github.com/MF33006" target="_blank"  class="contact-icon"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div> 
+            <!-- 成员卡片 11-->
+   <div class="member-card">
+      <div class="card-top">
+        <img src="src/wangyida.png" alt="王毅达 " class="member-avatar">
+        <h2 class="member-name">王毅达 </h2>
+        <p class="member-role">Godot独立游戏开发</p>
+      </div>
+      <div class="card-body">
+        <div class="tech-stack">
+          <span class="tech-label">技术专长:</span>
+          <p>C#</p>
+        </div>
+        <div class="contact-methods">
+         <a href="https://github.com/ksyou233" target="_blank"  class="contact-icon"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+            <!-- 成员卡片 12-->
+   <div class="member-card">
+      <div class="card-top">
+        <img src="src/zhencheng.png" alt="甄诚 " class="member-avatar">
+        <h2 class="member-name">甄诚 </h2>
+        <p class="member-role">Web开发，图形学</p>
+      </div>
+      <div class="card-body">
+        <div class="tech-stack">
+          <span class="tech-label">技术专长:</span>
+          <p>Vue, 工程仿真计算</p>
+        </div>
+        <div class="contact-methods">
+         <a href="https://github.com/Hi-Zachary" target="_blank"  class="contact-icon"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+            <!-- 成员卡片 13-->
+   <div class="member-card">
+      <div class="card-top">
+        <img src="src/zhaoshuyang.png" alt="赵舒阳 " class="member-avatar">
+        <h2 class="member-name">赵舒阳</h2>
+        <p class="member-role">前后端开发</p>
+      </div>
+      <div class="card-body">
+        <div class="tech-stack">
+          <span class="tech-label">技术专长:</span>
+          <p>Vue, java</p>
+        </div>
+        <div class="contact-methods">
+         <a href="https://github.com/qin-net" target="_blank"  class="contact-icon"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+</section>
+
+</body>
+</html>

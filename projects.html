@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>项目介绍</title>
+    <style>
+      body {
+        background-image: url('src/bg.png');
+        margin: 0;
+        padding: 0;
+        font-family: 'Microsoft YaHei', Arial, sans-serif;
+        color: rgba(255, 255, 255, 0.85);
+        min-height: 100vh;
+        background-color: #111;
+        background-size: cover;
+        background-attachment: fixed;
+        position: relative;
+      }
+
+      main {
+        padding: 2rem 5%;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .project-title {
+        font-size: 2.8rem;
+        margin: 4rem 0 2.5rem 0;
+        text-align: center;
+        background: linear-gradient(to right, #00ccff, #0a9aff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 15px rgba(0, 195, 255, 0.4);
+        position: relative;
+        letter-spacing: 1px;
+        padding-top: 20px;
+      }
+
+      .project-title::after {
+        content: "";
+        display: block;
+        width: 180px;
+        height: 3px;
+        background: linear-gradient(to right, transparent, #00ccff, transparent);
+        margin: 0.8rem auto 0;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+        gap: 30px;
+        padding-bottom: 40px;
+      }
+
+      .project-card {
+        background: rgba(20, 30, 50, 0.85);
+        border: 1px solid rgba(0, 195, 255, 0.3);
+        border-radius: 10px;
+        padding: 25px;
+        transition: all 0.3s ease;
+        position: relative;
+        height: 100%;
+        box-sizing: border-box;
+        backdrop-filter: blur(4px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      }
+
+      .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 195, 255, 0.4), 0 0 20px rgba(0, 195, 255, 0.1) inset;
+        border-color: #00ccff;
+      }
+
+      .card-header {
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid rgba(0, 195, 255, 0.2);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .project-name {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #0ff;
+        margin: 0;
+        letter-spacing: 0.5px;
+        text-shadow: 0 0 10px rgba(0, 195, 255, 0.5);
+      }
+
+      .project-subtitle {
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.85);
+        margin-top: 0.5rem;
+        margin-bottom: 1.5rem;
+        font-weight: normal;
+        line-height: 1.5;
+        padding-left: 10px;
+        border-left: 3px solid #00a8ff;
+      }
+
+      .project-details {
+        margin: 1rem 0;
+      }
+
+      .detail-item {
+        display: flex;
+        margin-bottom: 15px;
+        line-height: 1.5;
+      }
+
+      .detail-title {
+        flex: 0 0 120px;
+        font-weight: bold;
+        color: #4dabf7;
+        font-size: 1.1rem;
+      }
+
+      .detail-content {
+        flex: 1;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 5px;
+      }
+
+      .tech-tag {
+        background: rgba(0, 150, 255, 0.2);
+        color: #70d6ff;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        border: 1px solid rgba(0, 195, 255, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .tech-tag:hover {
+        background: rgba(0, 180, 255, 0.3);
+        transform: scale(1.05);
+      }
+
+      .members-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .member-tag {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-size: 0.9rem;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+      }
+
+      .links-container {
+        display: flex;
+        gap: 25px;
+        margin-top: 25px;
+        padding-top: 20px;
+        border-top: 1px solid rgba(0, 195, 255, 0.2);
+      }
+
+      .project-link {
+        color: #0ff;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 500;
+        font-size: 1.1rem;
+        padding: 8px 20px;
+        background: rgba(0, 180, 255, 0.15);
+        border-radius: 30px;
+        border: 1px solid rgba(0, 195, 255, 0.5);
+      }
+
+      .project-link:hover {
+        color: #fff;
+        text-shadow: 0 0 10px #0ff;
+        background: rgba(0, 180, 255, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 0 15px rgba(0, 195, 255, 0.3);
+      }
+
+      .project-link::before {
+        content: "→";
+        color: #ff6b6b;
+        font-size: 1.4rem;
+        position: relative;
+      }
+
+      .corner-decor {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border: 2px solid #00ccff;
+      }
+
+      .corner-decor.top-left {
+        top: 15px;
+        left: 15px;
+        border-right: none;
+        border-bottom: none;
+      }
+
+      .corner-decor.top-right {
+        top: 15px;
+        right: 15px;
+        border-left: none;
+        border-bottom: none;
+      }
+
+      .corner-decor.bottom-left {
+        bottom: 15px;
+        left: 15px;
+        border-right: none;
+        border-top: none;
+      }
+
+      .corner-decor.bottom-right {
+        bottom: 15px;
+        right: 15px;
+        border-left: none;
+        border-top: none;
+      }
+      
+      .tech-dot {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        background: rgba(0, 195, 255, 0.5);
+        border-radius: 50%;
+        box-shadow: 0 0 15px rgba(0, 195, 255, 0.7);
+        z-index: -1;
+      }
+      
+      .tech-line {
+        position: absolute;
+        background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,195,255,1) 50%, rgba(0,0,0,0) 100%);
+        height: 2px;
+        z-index: -1;
+      }
+      
+      @media (max-width: 1100px) {
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+        
+        .project-card {
+          max-width: 650px;
+          margin: 0 auto;
+        }
+      }
+      
+      @media (max-width: 600px) {
+        .project-title {
+          font-size: 2.2rem;
+          margin: 1rem 0 1.8rem 0;
+        }
+        
+        .project-name {
+          font-size: 1.6rem;
+        }
+        
+        .project-subtitle {
+          font-size: 1.1rem;
+        }
+        
+        .detail-item {
+          flex-direction: column;
+          gap: 5px;
+        }
+        
+        .detail-title {
+          flex: none;
+          margin-bottom: 5px;
+        }
+        
+        .links-container {
+          flex-direction: column;
+          gap: 15px;
+        }
+      }
+    </style>
+</head>
+<body>
+<header>
+  <nav>
+    <div class="nav-container">
+      <div class="nav-logo">
+        <img src="/src/nav-logo.png" class="logo-image">
+      </div>
+      <span class="logo-text">Block Chain</span>
+      <ul class="nav-links">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="about.html">关于我们</a></li>
+        <li><a href="projects.html" class="active">项目介绍</a></li>
+        <li><a href="meetings.html">例会介绍</a></li>
+        <li><a href="members.html">成员介绍</a></li>
+        <li><a href="contact.html">联系我们</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <h1 class="project-title">项目介绍(Projects)</h1>
+  
+  <div class="projects-grid" id="projectsContainer">
+    <!-- 项目卡片将由JavaScript动态生成 -->
+  </div>
+</main>
+
+<!-- 引入main.js文件 -->
+<script src="js/main.js"></script>
+
+<script>
+  // 科技感背景元素生成（保留在HTML中）
+  document.addEventListener('DOMContentLoaded', function() {
+    const body = document.querySelector('body');
+    const numDots = 25;
+    const numLines = 8;
+    
+    for (let i = 0; i < numDots; i++) {
+      const dot = document.createElement('div');
+      dot.classList.add('tech-dot');
+      dot.style.top = `${Math.random() * 100}%`;
+      dot.style.left = `${Math.random() * 100}%`;
+      dot.style.opacity = Math.random() * 0.6 + 0.2;
+      dot.style.width = `${Math.random() * 6 + 2}px`;
+      dot.style.height = dot.style.width;
+      body.appendChild(dot);
+    }
+    
+    for (let i = 0; i < numLines; i++) {
+      const line = document.createElement('div');
+      line.classList.add('tech-line');
+      line.style.top = `${Math.random() * 100}%`;
+      line.style.left = `${Math.random() * 100}%`;
+      line.style.width = `${Math.random() * 200 + 50}px`;
+      line.style.transform = `rotate(${Math.random() * 360}deg)`;
+      line.style.opacity = Math.random() * 0.3 + 0.1;
+      body.appendChild(line);
+    }
+  });
+</script>
+</body>
+</html>

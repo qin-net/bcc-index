@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>联系我们 - 区块链俱乐部</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #4db8ff;
+            --secondary: #ff3466;
+            --dark: #0c1427;
+            --darker: #080d1a;
+            --light: #e0e0e0;
+            --text: #f0f8极速ff;
+        }
+        
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Microsoft YaHei', sans-serif;
+            color: var(--light);
+            background: var(--darker);
+        }
+        
+        .bg-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, rgba(12, 20, 40, 0.9) 0%, var(--darker) 70%);
+            padding: 120px 0 100px;
+        }
+        
+        /* 动态网格背景 */
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(77, 184, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(77, 184, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        .contact-content {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            z-index: 10;
+        }
+        
+        .contact-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .contact-title {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            position: relative;
+        }
+        
+        .contact-title::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .contact-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 30px auto 0;
+            line-height: 1.6;
+        }
+        
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 70px;
+        }
+        
+        .contact-section {
+            background: rgba(15, 25, 45, 0.45);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(77, 184, 255, 0.2);
+            border-radius: 20px;
+            padding: 35px 40px;
+            width: calc(50% - 20px);
+            min-width: 300px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
+        }
+        
+        .contact-section:hover {
+            transform: translateY(-8px);
+            border: 1px solid rgba(77, 184, 255, 0.5);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(77, 184, 255, 0.4);
+        }
+        
+        .contact-section-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .contact-section-title i {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.8rem;
+        }
+        
+        /* 表单样式 */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--light);
+        }
+        
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(77, 184, 255, 0.3);
+            border-radius: 8px;
+            color: var(--light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 10px rgba(77, 184, 255, 0.5);
+        }
+        
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* 加载动画 */
+        .loader {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .submit-btn-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 社交媒体样式 */
+        .social-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .qr-code:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--primary);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+        
+        /* 底部联系信息 */
+        .contact-info {
+            background: rgba(15, 25, 45, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid rgba(77, 184, 255, 0.2);
+        }
+        
+        .contact-details {
+            font-size: 1.1rem;
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 900px) {
+            .contact-section {
+                width: 100%;
+            }
+            
+            .contact-title {
+                font-size: 2.8rem;
+            }
+            
+            .contact-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .contact-title {
+                font-size: 2.2rem;
+            }
+            
+            .contact-subtitle {
+                font-size: 1rem;
+            }
+            
+            .contact-section {
+                padding: 25px;
+            }
+            
+            .contact-section-title {
+                font-size: 1.7rem;
+                padding-left: 35px;
+            }
+            
+            .contact-section-title i {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="about.html">关于我们</a></li>
+                    <li><a href="projects.html">项目介绍</a></li>
+                    <li><a href="meetings.html">例会介绍</a></li>
+                    <li><a href="members.html">成员介绍</a></li>
+                    <li><a href="contact.html" class="active">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="nav-logo">
+                <img src="/src/nav-logo.png" class="logo-image">
+            </div>
+            <span class="logo-text">Block Chain</span>
+        </nav>
+    </header>
+    
+    <div class="bg-container">
+        <!-- 网格背景 -->
+        <div class="grid-bg"></div>
+        
+        <div class="contact-content">
+            <div class="contact-header">
+                <h1 class="contact-title">联系我们</h1>
+                <p class="contact-subtitle">创新科技 | 技术引领 | 实战培养 | 成果导向</p>
+            </div>
+            
+            <div class="contact-container">
+                <!-- 反馈表单区域 -->
+                <div class="contact-section">
+                    <h2 class="contact-section-title"><i class="fas fa-comment-dots"></i>反馈表单</h2>
+                    <!-- 将下面的YOUR_FORMSPREE_ENDPOINT替换为您的Formspree端点 -->
+                    <form id="feedback-form" action="https://formspree.io/f/xgvlwyrr" method="POST">
+                        <div class="form-group">
+                            <label for="name" class="form-label">您的姓名</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="请输入您的姓名" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">电子邮箱</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="请输入您的邮箱" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">您的留言</label>
+                            <textarea id="message" name="message" class="form-textarea" placeholder="请留下您的宝贵意见或问题..." required></textarea>
+                        </div>
+                        
+                        <div class="submit-btn-container">
+                            <div class="loader" id="form-loader"></div>
+                            <button type="submit" class="submit-btn" id="submit-btn">提交反馈</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- 社交媒体链接区域 -->
+                <div class="contact-section">
+                    <h2 class="contact-section-title"><i class="fas fa-share-alt"></i>社交媒体</h2>
+                    <div class="social-container">
+                        <p class="form-label">加入我们的QQ交流群</p>
+                        <div class="qr-code">
+                            <img src="/src/qr-code.png" alt="QQ交流群二维码">
+                        </div>
+                        
+                        <div class="social-links">
+                            <a href="#" class="social-link">
+                                <i class="fab fa-qq"></i>
+                            </a>
+                        </div>
+                        
+                        <p class="form-label" style="margin-top: 20px;">群号: <span class="highlight">963338979</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部联系信息 -->
+        <div class="contact-info">
+            <p class="contact-details">
+                <span class="highlight">联系邮箱:</span> arisonel@foxmail.com &nbsp; | &nbsp;
+                <span class="highlight">俱乐部地点:</span> 教学楼A315
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const feedbackForm = document.getElementById('feedback-form');
+            const formLoader = document.getElementById('form-loader');
+            const submitBtn = document.getElementById('submit-btn');
+            
+            if (feedbackForm) {
+                feedbackForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    // 表单验证
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
+                    
+                    if (!name || !email || !message) {
+                        alert('请填写所有必填字段');
+                        return;
+                    }
+                    
+                    // 显示加载动画
+                    formLoader.style.display = 'inline-block';
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = '提交中...';
+                    
+                    try {
+                        // 使用Formspree处理表单提交
+                        const formData = new FormData(feedbackForm);
+                        
+                        const response = await fetch(feedbackForm.action, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            alert('感谢您的反馈！我们会尽快回复您。');
+                            feedbackForm.reset();
+                        } else {
+                            const errorData = await response.json();
+                            throw new Error(errorData.error || '表单提交失败');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('提交过程中出现错误：' + error.message);
+                    } finally {
+                        // 隐藏加载动画
+                        formLoader.style.display = 'none';
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '提交反馈';
+                    }
+                });
+            }
+            
+            // 卡片交互动画
+            const sections = document.querySelectorAll('.contact-section');
+            sections.forEach(section => {
+                section.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                    this.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(77, 184, 255, 0.4)';
+                });
+                
+                section.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.5)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

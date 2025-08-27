@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>关于我们 - 区块链俱乐部</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #4db8ff;
+            --secondary: #ff3466;
+            --dark: #0c1427;
+            --darker: #080d1a;
+            --light: #e0e0e0;
+            --text: #f0f8ff;
+        }
+        
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: 'Microsoft YaHei', sans-serif;
+            color: var(--light);
+            background: var(--darker);
+        }
+        
+        .bg-container {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, rgba(12, 20, 40, 0.9) 0%, var(--darker) 70%);
+            padding: 120px 0 100px;
+        }
+        
+        /* 动态网格背景 */
+        .grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(77, 184, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(77, 184, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: 1;
+            opacity: 0.3;
+        }
+        
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+        }
+        
+        .about-content {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            z-index: 10;
+        }
+        
+        .club-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .club-logo {
+            width: 180px;
+            height: auto;
+            margin: 0 auto 20px;
+            filter: drop-shadow(0 0 20px rgba(77, 184, 255, 0.6));
+        }
+        
+        .club-title {
+            font-size: 3.8rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            position: relative;
+        }
+        
+        .club-title::after {
+            content: "";
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+        
+        .club-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 30px auto 0;
+            line-height: 1.6;
+        }
+        
+        .intro-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 70px;
+        }
+        
+        .intro-section {
+            background: rgba(15, 25, 45, 0.45);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(77, 184, 255, 0.2);
+            border-radius: 20px;
+            padding: 35px 40px;
+            width: calc(50% - 20px);
+            min-width: 300px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease;
+        }
+        
+        .intro-section:hover {
+            transform: translateY(-8px);
+            border: 1px solid rgba(77, 184, 255, 0.5);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(77, 184, 255, 0.4);
+        }
+        
+        .intro-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            position: relative;
+            padding-left: 40px;
+        }
+        
+        .intro-title i {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.8rem;
+        }
+        
+        .intro-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* 悬浮相册样式 */
+        .gallery-container {
+            position: relative;
+            max-width: 1600px;
+            margin: 40px auto 0;
+            font-family: inherit;
+            text-align: center;
+        }
+        
+        .gallery-trigger {
+            color: var(--light);
+            font-size: 2.5rem;
+            font-weight: 600;
+            padding: 5px 40px 20px;
+            cursor: pointer;
+            display: inline-block;
+            transition: all 0.3s;
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .gallery-trigger:hover {
+            color: var(--primary);
+        }
+        
+        .gallery-trigger::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 100%;
+            background: linear-gradient(to right, transparent, var(--secondary), var(--primary), transparent);
+            border-radius: 2px;
+            transform: scaleX(0.9);
+            transition: transform 0.3s;
+        }
+        
+        .gallery-trigger:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .gallery {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 10px;
+            
+            padding: 20px;
+            border-radius: 20px;
+            background: rgba(15, 25, 45, 0.45);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(77, 184, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.6s ease;
+        }
+        
+        .gallery-container:hover .gallery {
+            max-height: 400px;
+            opacity: 1;
+            margin-top: 30px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            transform: scale(0.95);
+            transition: all 0.5s ease;
+            width: 320px;
+            height: 280px;
+            flex-shrink: 0;
+        }
+        
+        .gallery-container:hover .gallery-item {
+            transform: scale(1);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .gallery-item:hover::after {
+            opacity: 0.3;
+        }
+        
+        /* 底部电路板装饰 */
+        .circuit-board {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            z-index: 2;
+        }
+        
+        .circuit-line {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 200"><path fill="none" stroke="%234db8ff" stroke-width="0.5" opacity="0.3" d="M50,150 C150,50 250,180 350,70 C450,130 550,40 650,160 C750,30 850,180 950,50"></path></svg>');
+            background-size: cover;
+            animation: wave 12s linear infinite;
+        }
+        
+        @keyframes wave {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-1000px); }
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 900px) {
+            .intro-section {
+                width: 100%;
+            }
+            
+            .club-title {
+                font-size: 3rem;
+            }
+            
+            .club-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .gallery-item {
+                width: 180px;
+                height: 130px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .club-title {
+                font-size: 2.5rem;
+            }
+            
+            .club-subtitle {
+                font-size: 1rem;
+            }
+            
+            .intro-section {
+                padding: 25px;
+            }
+            
+            .intro-title {
+                font-size: 1.7rem;
+                padding-left: 35px;
+            }
+            
+            .intro-title i {
+                font-size: 1.5rem;
+            }
+            
+            .gallery-trigger {
+                font-size: 2rem;
+            }
+            
+            .gallery {
+                gap: 15px;
+            }
+            
+            .gallery-item {
+                width: 140px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="index.html">首页</a></li>
+                    <li><a href="about.html" class="active">关于我们</a></li>
+                    <li><a href="projects.html">项目介绍</a></li>
+                    <li><a href="meetings.html">例会介绍</a></li>
+                    <li><a href="members.html">成员介绍</a></li>
+                    <li><a href="contact.html">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="nav-logo">
+                <img src="/src/nav-logo.png" class="logo-image">
+            </div>
+            <span class="logo-text">Block Chain</span>
+        </nav>
+    </header>
+    
+    <div class="bg-container">
+        <!-- 网格背景 -->
+        <div class="grid-bg"></div>
+        
+        <div class="about-content">
+            <div class="club-header">
+                <img src="/src/logo.png" alt="区块链俱乐部" class="club-logo">
+                <h1 class="club-title">关于我们</h1>
+                <p class="club-subtitle">创新科技 | 技术引领 | 实战培养 | 成果导向</p>
+            </div>
+            
+            <div class="intro-container">
+                <div class="intro-section">
+                    <h2 class="intro-title"><i class="fas fa-users"></i>俱乐部简介</h2>
+                    <p class="intro-text">
+                        <span class="highlight">区块链俱乐部(Blockchain Club,BCC)</span>是一个专注于金融信息化与互联网技术的创新俱乐部。俱乐部历届成员前往百度、阿里巴巴、花旗、腾讯、华为、美团等顶级企业就职，为组内成员提供优质的企业内推机会。我们的成员专注于分布式数据存储技术、Web前后端技术、移动开发、算法学习等方向，多次攻克国家级创新创业项目，并在各大金融信息化与互联网赛事中取得优异成绩。
+                    </p>
+                </div>
+                
+                <div class="intro-section">
+                    <h2 class="intro-title"><i class="fas fa-calendar-check"></i>活动特色</h2>
+                    <p class="intro-text">
+                        区块链俱乐部会根据教学进度安排，展开不同方向的例会沙龙，例如面向对象编程、前后端开发、Git版本管理等。即使是零基础学员，在认真学习后也能轻松掌握核心技术。同时我们与腾讯组、创业组等创中其他组保持深度合作，不仅在例会上进行人才培养，更在各类竞赛中携手并进，共同完成高质量项目。除了例会，我们还在创中A315办公室设置了流动自习区，欢迎学弟学妹前来共同学习与交流！
+                    </p>
+                </div>
+                
+                <div class="intro-section">
+                    <h2 class="intro-title"><i class="fas fa-bullseye"></i>核心理念</h2>
+                    <p class="intro-text">
+                        区块链俱乐部，不画饼，不好高骛远!在我们的俱乐部中，坚持努力后你会收获远超自己摸索的成果。我们通过系统化教学，让零基础的小白也能在扎实学习后掌握核心技术，与团队成员一起参与高水平比赛。在一年的学习周期内，成员不仅能够掌握实用技能，还能产出真实的比赛成果和项目案例，为未来发展奠定坚实基础。
+                    </p>
+                </div>
+                
+                <div class="intro-section">
+                    <h2 class="intro-title"><i class="fas fa-lightbulb"></i>培养目标</h2>
+                    <p class="intro-text">
+                        我们预期将在大一学年里，系统教学引领，让0基础的小白也能在扎实的学习后上手，和组内成员参加比赛，并在一年的学习过程中，拥有比赛和项目的成果。通过实际项目驱动学习，培养学生解决复杂问题的能力，并为学生未来的职业发展提供全方位支持。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 悬浮式相册设计 -->
+            <div class="gallery-container">
+                <h3 class="gallery-trigger">俱乐部日常</h3>
+                <div class="gallery">
+                    <div class="gallery-item">
+                        <img src="src/richang2.png" alt="学习讨论">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="src/richang1.png" alt="技术分享">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="src/richang4.png" alt="项目协作">
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部电路板动画 -->
+        <div class="circuit-board">
+            <div class="circuit-line"></div>
+            <div class="circuit-line" style="animation-delay: -6s; opacity: 0.5;"></div>
+        </div>
+    </div>
+
+    <script>
+        // 相册动画控制
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryContainer = document.querySelector('.gallery-container');
+            const galleryTrigger = document.querySelector('.gallery-trigger');
+            
+            // 默认展开相册（如果页面足够高）
+            if(document.documentElement.scrollHeight > window.innerHeight * 1.5) {
+                setTimeout(() => {
+                    galleryContainer.classList.add('hover');
+                }, 1500);
+            }
+            
+            // 点击触发相册
+            galleryTrigger.addEventListener('click', function() {
+                galleryContainer.classList.toggle('hover');
+            });
+            
+            // 卡片交互动画
+            const sections = document.querySelectorAll('.intro-section');
+            sections.forEach(section => {
+                section.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                    this.style.boxShadow = '0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(77, 184, 255, 0.4)';
+                });
+                
+                section.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.5)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
